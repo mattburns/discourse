@@ -3,8 +3,8 @@ require_dependency 'file_helper'
 
 class StaticController < ApplicationController
 
-  skip_before_filter :check_xhr, :redirect_to_login_if_required
-  skip_before_filter :verify_authenticity_token, only: [:brotli_asset, :cdn_asset, :enter, :favicon]
+  skip_before_action :check_xhr, :redirect_to_login_if_required
+  skip_before_action :verify_authenticity_token, only: [:brotli_asset, :cdn_asset, :enter, :favicon]
 
   PAGES_WITH_EMAIL_PARAM = ['login', 'password_reset', 'signup']
 
