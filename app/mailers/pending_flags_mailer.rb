@@ -7,7 +7,12 @@ class PendingFlagsMailer < ActionMailer::Base
   def notify
     return unless SiteSetting.contact_email
 
-    @posts, @topics, @users = FlagQuery.flagged_posts_report(Discourse.system_user, 'active', 0, 20)
+    @posts, @topics, @users = FlagQuery.flagged_posts_report(
+      Discourse.system_user,
+      filter: 'active',
+      offset: 0,
+      per_page: 20
+    )
 
     @posts.each do |post| # Note: post is a Hash, not a Post.
       topic = @topics.select { |t| t[:id] == post[:topic_id] }.first
